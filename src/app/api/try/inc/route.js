@@ -4,7 +4,7 @@ import { neon } from '@neondatabase/serverless';
 export async function GET(request) {
   try {
     // Connect to the Neon database using the DATABASE_URL environment variable
-    const sql = neon(process.env.DATABASE_URL);
+    const sql = neon(process.env.DATABASE_URL2);
     
     // Query all rows from the 'inc' table
     const inc = await sql('SELECT * FROM inc');

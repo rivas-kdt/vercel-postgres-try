@@ -14,6 +14,9 @@ export async function GET(request) {
       status: 200,
       headers: {
         'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*', // Allow requests from any origin
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', // Allowed HTTP methods
+        'Access-Control-Allow-Headers': 'Content-Type', // Allowed headers
       },
     });
   } catch (error) {

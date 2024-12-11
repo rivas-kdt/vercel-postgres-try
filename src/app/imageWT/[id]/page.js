@@ -33,45 +33,46 @@ export default function ImageDisplay() {
     fetchImageData();
   }, [id]);
 
-
-  useEffect(() => {
-    if (imageData && canvasRef.current && imageRef.current) {
-      const canvas = canvasRef.current;
-      const img = imageRef.current;
-
-      canvas.width = img.width;
-      canvas.height = img.height;
-
-      // Draw the image and tags when data is loaded
-      const ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
-
-      // Draw the image
-      ctx.drawImage(img, 0, 0, img.width, img.height);
-
-      // Draw the tags (rectangles)
-      tags.forEach((tag) => {
-        const label = tag.label;
-        const startPos = tag.position.start
-        const endPos = tag.position.end
-
-        // Draw rectangle for each tag
-        ctx.strokeStyle = "red";
-        ctx.lineWidth = 2;
-        ctx.strokeRect(
-          startPos.x,
-          startPos.y,
-          endPos.x - startPos.x,
-          endPos.y - startPos.y
-        );
-
-        // Draw the tag label
-        ctx.fillStyle = "white";
-        ctx.font = "14px Arial";
-        ctx.fillText(label, startPos.x, startPos.y - 5);
-      });
-    }
-  }, [imageData, tags]);
+  console.log(tags)
+  
+//  useEffect(() => {
+//    if (imageData && canvasRef.current && imageRef.current) {
+//      const canvas = canvasRef.current;
+//      const img = imageRef.current;
+//
+//      canvas.width = img.width;
+//      canvas.height = img.height;
+//
+//      // Draw the image and tags when data is loaded
+//      const ctx = canvas.getContext("2d");
+//      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+//
+//      // Draw the image
+//      ctx.drawImage(img, 0, 0, img.width, img.height);
+//
+//      // Draw the tags (rectangles)
+//      tags.forEach((tag) => {
+//        const label = tag.label;
+//        const startPos = tag.position.start
+//        const endPos = tag.position.end
+//
+//        // Draw rectangle for each tag
+//        ctx.strokeStyle = "red";
+//        ctx.lineWidth = 2;
+//        ctx.strokeRect(
+//          startPos.x,
+//          startPos.y,
+//          endPos.x - startPos.x,
+//          endPos.y - startPos.y
+//        );
+//
+//        // Draw the tag label
+//        ctx.fillStyle = "white";
+//        ctx.font = "14px Arial";
+//        ctx.fillText(label, startPos.x, startPos.y - 5);
+//      });
+//    }
+//  }, [imageData, tags]);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -102,14 +103,14 @@ export default function ImageDisplay() {
       <p>URL: {imageData.url}</p>
       <div className="mt-4">
         <h3 className="mb-2 text-xl font-semibold">Tags:</h3>
-        <ul>
+        {`<ul>
           {tags.map((tag, index) => (
             <li key={index}>
               {tag.label} (x1: {tag.startPos.x}, y1: {tag.startPos.y}, x2:{" "}
               {tag.endPos.x}, y2: {tag.endPos.y})
             </li>
           ))}
-        </ul>
+        </ul>`}
       </div>
     </div>
   );

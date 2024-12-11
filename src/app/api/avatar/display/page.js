@@ -25,8 +25,9 @@ export default function Display() {
   return (
     <div>
         {data.map((img)=>{
-            <div key={img.id} className=" w-4/5 h-[25%] bg-yellow-500">
-                <Image src={img.url} width={240} height={200}></Image>
+            <div key={img.id} className=" w-4/5 h-[25%] bg-yellow-500 relative">
+                <p>Image</p>
+                <Image src={img.url} fill className="object-contain "></Image>
             </div>
         })}
     </div>

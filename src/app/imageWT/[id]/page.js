@@ -39,7 +39,8 @@ export default function ImageDisplay() {
       // Calculate the scaling factor based on the image's natural dimensions
       const scaleX = canvas.width / img.naturalWidth;
       const scaleY = canvas.height / img.naturalHeight;
-
+      console.log({h: img.naturalHeight, w:img.naturalWidth})
+      
       // Set the canvas size to match the image size
       canvas.width = img.width;
       canvas.height = img.height;

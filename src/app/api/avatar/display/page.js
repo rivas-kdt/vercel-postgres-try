@@ -22,11 +22,18 @@ export default function Display() {
   console.log(error);
   return (
     <div className="flex items-end justify-center w-screen h-screen gap-2">
-      {data.map((img) => (
-        <div key={img.id}>
-          <Image src={img.url} sizes="250px" loading="lazy" className="w-full h-auto "></Image>
-        </div>
-      ))}
+      <div className="flex items-end ">
+        {data.map((img) => (
+          <div key={img.id}>
+            <Image
+              src={img.url}
+              sizes="250px"
+              loading="lazy"
+              className="w-full h-auto "
+            ></Image>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

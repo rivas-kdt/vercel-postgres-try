@@ -3,7 +3,6 @@ import { neon } from "@neondatabase/serverless";
 
 export async function POST(request) {
   const { id, tags } = await request.json();
-
   const tagData = {
     tags: tags.map((tag) => ({
       position: {

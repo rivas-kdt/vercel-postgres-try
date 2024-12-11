@@ -106,7 +106,7 @@ export default function ImageDisplay({ id }) {
 
   const saveTags = async () => {
     try {
-      await axios.post("/api/save-tags", { id, tags });
+      await axios.post("/api/avatar/save_tags", { id, tags });
       alert("Tags saved successfully!");
     } catch (err) {
       console.error("Error saving tags:", err);

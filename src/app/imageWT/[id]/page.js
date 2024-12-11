@@ -23,6 +23,7 @@ export default function ImageDisplay() {
         const response = await axios.get(`/api/avatar/get_imageT?id=${id}`);
         const { image, tags } = response.data;
         setImageData(image);
+        console.log(tags.tags)
         setTags(tags);
       } catch (err) {
         setError(err.message);
@@ -31,6 +32,7 @@ export default function ImageDisplay() {
 
     fetchImageData();
   }, [id]);
+
 
   useEffect(() => {
     if (imageData && canvasRef.current && imageRef.current) {
@@ -49,7 +51,7 @@ export default function ImageDisplay() {
 
       // Draw the tags (rectangles)
       tags.forEach((tag) => {
-        const { startPos, endPos, label } = tag;
+        const { startPos, endPos, label } = tag.tags;
 
         // Draw rectangle for each tag
         ctx.strokeStyle = "red";

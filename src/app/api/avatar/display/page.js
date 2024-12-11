@@ -2,8 +2,10 @@
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useRouter } from 'next/router';
 
 export default function Display() {
+const router = useRouter();
   const [data, setData] = useState([]);
   const [error, setError] = useState();
   useEffect(() => {
@@ -22,6 +24,10 @@ export default function Display() {
     return () => clearInterval(intervalId);
   }, []);
 
+  const handleClick = (id) => {
+    router.push(`/tag-image/${id}`);
+  };
+
   console.log(data);
   console.log(error);
   return (
@@ -29,7 +35,7 @@ export default function Display() {
       <div className="w-full max-w-[90%]">
         <div className="gap-2 columns-1 sm:columns-2 md:columns-5">
           {data.map((img) => (
-            <div key={img.id} className="relative mb-4 cursor-pointer break-inside-avoid" href={`/tag-image/${img.id}`}>
+            <div key={img.id} className="relative mb-4 cursor-pointer break-inside-avoid" onClick={handleClick(img.id)}>
               <Image
                 src={img.url}
                 sizes="250px"

@@ -23,11 +23,10 @@ export async function POST(request) {
     const sql = neon(process.env.DATABASE_URL);
 
     // Insert the image URL into the 'images' table
-    await sql(
-      `INSERT INTO tags (image_id, tag_data) VALUES (${id}, ${JSON.stringify(
-        tagData
-      )})`
-    );
+    await sql("INSERT INTO tags (image_id, tag_data) VALUES (${1}, ${1})", [
+      id,
+      JSON.stringify(tagData),
+    ]);
 
     // Respond with success
     return new Response(

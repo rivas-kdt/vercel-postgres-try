@@ -1,3 +1,5 @@
+import axios from "axios";
+
 async function fetchImage(id) {
   try {
     const response = await axios.get(`/api/avatar/get-image?id=${id}`);
@@ -13,7 +15,7 @@ export default async function TagImage({ params }) {
   const data = fetchImage(id);
   console.log(id);
   console.log(data);
-  
+
   return (
     <div>
       <p>{id}</p>

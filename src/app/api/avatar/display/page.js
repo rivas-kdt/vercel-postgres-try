@@ -23,7 +23,7 @@ export default function Display() {
   return (
     <div className="flex items-center justify-center w-screen h-screen gap-2">
       <div className="w-full max-w-7xl">
-        <div className="gap-4 columns-1 sm:columns-2 md:columns-5">
+        <div className="gap-2 columns-1 sm:columns-2 md:columns-5">
           {data.map((img) => (
             <div key={img.id} className="relative mb-4 break-inside-avoid">
               <Image

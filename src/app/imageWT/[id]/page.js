@@ -80,8 +80,8 @@ export default function ImageDisplay() {
           ref={imageRef}
           src={imageData.url}
           alt="Image with Tags"
-          width={imageData.width || 500} // Default width if not provided
-          height={imageData.height || 500} // Default height if not provided
+          width={250} // Default width if not provided
+          height={250} // Default height if not provided
           className="h-auto max-w-full"
         />
         <canvas

@@ -33,7 +33,7 @@ export default function ImageDisplay() {
     fetchImageData();
   }, [id]);
 
-  console.log(tags)
+  console.log(tags.end)
   
 //  useEffect(() => {
 //    if (imageData && canvasRef.current && imageRef.current) {

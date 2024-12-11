@@ -55,8 +55,11 @@ export default function ImageDisplay({ id }) {
     drawRect();
   };
 
-  const endDrawing = () => {
+  const endDrawing = (e) => {
+    if (!isDrawing) return;
     setIsDrawing(false);
+
+    // Prevent drawing if the mouse leaves the canvas during drawing
     const tag = prompt("Enter a tag for this selection:");
     if (tag) {
       setTags([...tags, { startPos, endPos, tag }]);
@@ -91,7 +94,7 @@ export default function ImageDisplay({ id }) {
       ctx.fillText(tag.tag, tag.startPos.x, tag.startPos.y - 5);
     });
 
-    // Draw current selection
+    // Draw current selection (only when drawing)
     if (isDrawing) {
       ctx.strokeStyle = "blue";
       ctx.lineWidth = 2;
@@ -111,9 +114,9 @@ export default function ImageDisplay({ id }) {
         alert("No tags to save.");
         return;
       }
-  
+
       console.log("Sending tags to server:", { id, tags });
-  
+
       // Send the tags data to the server
       const response = await fetch("/api/avatar/save_tags", {
         method: "POST",
@@ -122,11 +125,11 @@ export default function ImageDisplay({ id }) {
         },
         body: JSON.stringify({ id: id, tags: tags }),
       });
-  
+
       // Check if the response is successful
       const result = await response.json();
       console.log("Server response:", result);
-  
+
       if (response.ok && result.success) {
         // If the server responds with success, notify the user
         alert("Tags saved successfully!");
@@ -166,8 +169,7 @@ export default function ImageDisplay({ id }) {
           ref={canvasRef}
           onMouseDown={startDrawing}
           onMouseMove={draw}
-          onMouseUp={endDrawing}
-          onMouseLeave={endDrawing}
+          onMouseUp={endDrawing} // Only end drawing on mouse up
           className="absolute top-0 left-0 w-full h-full"
         />
       </div>

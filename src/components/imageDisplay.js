@@ -106,8 +106,19 @@ export default function ImageDisplay({ id }) {
 
   const saveTags = async () => {
     try {
-      await axios.post("/api/avatar/save_tags", { id, tags });
-      alert("Tags saved successfully!");
+      const response2 = await fetch("/api/avatar/save_tags", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id: id, tags: tags }),
+      });
+      const result = await response2.json();
+      if (result.success) {
+        alert("Image uploaded and URL saved to database!");
+      } else {
+        alert("Failed to save image URL to database");
+      }
     } catch (err) {
       console.error("Error saving tags:", err);
       alert("Error saving tags. Please try again.");
@@ -162,4 +173,3 @@ export default function ImageDisplay({ id }) {
     </div>
   );
 }
-

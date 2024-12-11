@@ -18,7 +18,7 @@ export default function AvatarUploadPage() {
           // Upload the file to Vercel Blob
           const newBlob = await upload(file.name, file, {
             access: "public", // Ensure the blob is publicly accessible
-            handleUploadUrl: "/api/avatar/upup", // Custom URL to handle the upload
+            handleUploadUrl: "/api/avatar/upload-client-route", // Custom URL to handle the upload
           });
 
           // Store the blob URL in state

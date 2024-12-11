@@ -2,24 +2,31 @@
 import { neon } from "@neondatabase/serverless";
 
 export async function POST(request) {
+  const { id, tags } = await request.json();
+
+  const tagData = {
+    tags: tags.map((tag) => ({
+      position: {
+        start: {
+          x: tag.startPos.x,
+          y: tag.startPos.y,
+        },
+        end: {
+          x: tag.endPos.x,
+          y: tag.endPos.y,
+        },
+      },
+      label: tag.tag,
+      created_at: new Date().toISOString(),
+    })),
+  };
   try {
-    const { id, tags } = await request.json();
-
-    if (!id) {
-      return new Response(
-        JSON.stringify({ success: false, message: "ID is required" }),
-        {
-          status: 400,
-        }
-      );
-    }
-
     const sql = neon(process.env.DATABASE_URL);
 
     // Insert the image URL into the 'images' table
     await sql(
       `INSERT INTO tags (image_id, tag_data) VALUES (${id}, ${JSON.stringify(
-        tags
+        tagData
       )})`
     );
 

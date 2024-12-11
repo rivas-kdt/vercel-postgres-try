@@ -1,5 +1,6 @@
 "use client"
 import axios from "axios";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 export default function Display() {
@@ -23,7 +24,11 @@ export default function Display() {
       console.log(error)
   return (
     <div>
-        Ola
+        {data.map((img)=>{
+            <div key={img.id} className=" w-4/5 h-[25%] bg-yellow-500">
+                <Image src={img.url} width={240} height={200}></Image>
+            </div>
+        })}
     </div>
   )
 }

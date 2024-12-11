@@ -36,12 +36,6 @@ export default function ImageDisplay() {
       const canvas = canvasRef.current;
       const img = imageRef.current;
 
-      // Calculate the scaling factor based on the image's natural dimensions
-      const scaleX = canvas.width / img.naturalWidth;
-      const scaleY = canvas.height / img.naturalHeight;
-      console.log({h: img.naturalHeight, w:img.naturalWidth})
-      
-      // Set the canvas size to match the image size
       canvas.width = img.width;
       canvas.height = img.height;
 
@@ -57,26 +51,15 @@ export default function ImageDisplay() {
         const { label, position } = tag;
         const { start, end } = position;
 
-        // Apply scaling factor to tag positions
-        const scaledStartX = start.x * scaleX;
-        const scaledStartY = start.y * scaleY;
-        const scaledEndX = end.x * scaleX;
-        const scaledEndY = end.y * scaleY;
-
         // Draw rectangle for each tag
         ctx.strokeStyle = "red";
         ctx.lineWidth = 2;
-        ctx.strokeRect(
-          scaledStartX,
-          scaledStartY,
-          scaledEndX - scaledStartX,
-          scaledEndY - scaledStartY
-        );
+        ctx.strokeRect(start.x, start.y, end.x - start.x, end.y - start.y);
 
         // Draw the tag label
         ctx.fillStyle = "white";
         ctx.font = "14px Arial";
-        ctx.fillText(label, scaledStartX, scaledStartY - 5);
+        ctx.fillText(label, start.x, start.y - 5);
       });
     }
   }, [imageData, tags]);
@@ -97,8 +80,8 @@ export default function ImageDisplay() {
           ref={imageRef}
           src={imageData.url}
           alt="Image with Tags"
-          width={imageData.width || 500} // Default width if not provided
-          height={imageData.height || 500} // Default height if not provided
+          width={250} // Default width if not provided
+          height={250} // Default height if not provided
           className="h-auto max-w-full"
         />
         <canvas

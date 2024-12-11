@@ -26,6 +26,7 @@ export default function AvatarUploadPage() {
           const newBlob = await response.json();
 
           setBlob(newBlob);
+          
           const response2 = await fetch("/api/avatar/save-image", {
             method: "POST",
             headers: {

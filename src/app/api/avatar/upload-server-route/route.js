@@ -5,7 +5,7 @@ export async function POST(request) {
   const { searchParams } = new URL(request.url);
   const filename = searchParams.get('filename');
  
-  const blob = await put(filename, request.body, {
+  const blob = await put(`images/${filename}`, request.body, {
     access: 'public',
   });
  

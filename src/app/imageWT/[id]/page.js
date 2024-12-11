@@ -51,7 +51,9 @@ export default function ImageDisplay() {
 
       // Draw the tags (rectangles)
       tags.forEach((tag) => {
-        const { startPos, endPos, label } = tag.tags;
+        const label = tag.label;
+        const startPos = tag.position.start
+        const endPos = tag.position.end
 
         // Draw rectangle for each tag
         ctx.strokeStyle = "red";

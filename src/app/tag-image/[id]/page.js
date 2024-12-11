@@ -1,5 +1,5 @@
 
-async function fetchImage(id) {
+export async function fetchImage(id) {
     try{
         const response = await axios.get(`/api/avatar/get-image?id=${id}`)
         return response.data;

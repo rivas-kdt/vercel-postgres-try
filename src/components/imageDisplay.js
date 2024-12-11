@@ -106,6 +106,14 @@ export default function ImageDisplay({ id }) {
 
   const saveTags = async () => {
     try {
+      // Check if tags are available before sending the request
+      if (tags.length === 0) {
+        alert("No tags to save.");
+        return;
+      }
+  
+      console.log("Sending tags to server:", { id, tags });
+  
       // Send the tags data to the server
       const response = await fetch("/api/avatar/save_tags", {
         method: "POST",
@@ -115,18 +123,20 @@ export default function ImageDisplay({ id }) {
         body: JSON.stringify({ id: id, tags: tags }),
       });
   
-      // Handle the response from the server
+      // Check if the response is successful
       const result = await response.json();
+      console.log("Server response:", result);
   
       if (response.ok && result.success) {
         // If the server responds with success, notify the user
         alert("Tags saved successfully!");
       } else {
-        // If something went wrong on the server side
+        // If the response is not ok or success is not true, show an error
+        console.error("Failed to save tags:", result);
         alert("Failed to save tags. Please try again.");
       }
     } catch (err) {
-      // Handle any errors in the request
+      // Log any errors that occur during the fetch operation
       console.error("Error saving tags:", err);
       alert("Error saving tags. Please try again.");
     }

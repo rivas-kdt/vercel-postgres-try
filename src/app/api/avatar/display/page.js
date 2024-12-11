@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 export default function Display() {
     const [data,setData]=useState([]);
+    const [error,setError]=useState()
     useEffect(() => {
         // Fetch data when the component mounts
         const fetchData = async () => {
@@ -18,6 +19,7 @@ export default function Display() {
         fetchData();
       }, []);
       console.log(data)
+      console.log(error)
   return (
     <div>
         Ola

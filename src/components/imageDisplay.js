@@ -35,7 +35,7 @@ export default function ImageDisplay({ id }) {
         src={imageData.url}
         sizes="250px"
         loading="lazy"
-        className="w-full h-auto "
+        className="w-[250px] h-auto "
       ></Image>
       <p>ID: {imageData.id}</p>
       <p>URL: {imageData.url}</p>

@@ -11,8 +11,7 @@ export default function ImageDisplay() {
   const canvasRef = useRef(null);
   const imageRef = useRef(null);
   const pathname = usePathname();
-  const id = pathname.slice(9);
-  // Get image ID from URL
+  const id = pathname.slice(9); // Get image ID from URL
 
   useEffect(() => {
     if (!id) return; // Wait until the ID is available
@@ -23,8 +22,7 @@ export default function ImageDisplay() {
         const response = await axios.get(`/api/avatar/get_imageT?id=${id}`);
         const { image, tags } = response.data;
         setImageData(image);
-        console.log(tags.tags)
-        setTags(tags);
+        setTags(tags); // Set tags correctly
       } catch (err) {
         setError(err.message);
       }
@@ -33,46 +31,38 @@ export default function ImageDisplay() {
     fetchImageData();
   }, [id]);
 
-  console.log(tags.position.end)
-  
-//  useEffect(() => {
-//    if (imageData && canvasRef.current && imageRef.current) {
-//      const canvas = canvasRef.current;
-//      const img = imageRef.current;
-//
-//      canvas.width = img.width;
-//      canvas.height = img.height;
-//
-//      // Draw the image and tags when data is loaded
-//      const ctx = canvas.getContext("2d");
-//      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
-//
-//      // Draw the image
-//      ctx.drawImage(img, 0, 0, img.width, img.height);
-//
-//      // Draw the tags (rectangles)
-//      tags.forEach((tag) => {
-//        const label = tag.label;
-//        const startPos = tag.position.start
-//        const endPos = tag.position.end
-//
-//        // Draw rectangle for each tag
-//        ctx.strokeStyle = "red";
-//        ctx.lineWidth = 2;
-//        ctx.strokeRect(
-//          startPos.x,
-//          startPos.y,
-//          endPos.x - startPos.x,
-//          endPos.y - startPos.y
-//        );
-//
-//        // Draw the tag label
-//        ctx.fillStyle = "white";
-//        ctx.font = "14px Arial";
-//        ctx.fillText(label, startPos.x, startPos.y - 5);
-//      });
-//    }
-//  }, [imageData, tags]);
+  useEffect(() => {
+    if (imageData && canvasRef.current && imageRef.current) {
+      const canvas = canvasRef.current;
+      const img = imageRef.current;
+
+      canvas.width = img.width;
+      canvas.height = img.height;
+
+      // Draw the image and tags when data is loaded
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+
+      // Draw the image
+      ctx.drawImage(img, 0, 0, img.width, img.height);
+
+      // Draw the tags (rectangles)
+      tags.forEach((tag) => {
+        const { label, position } = tag;
+        const { start, end } = position;
+
+        // Draw rectangle for each tag
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 2;
+        ctx.strokeRect(start.x, start.y, end.x - start.x, end.y - start.y);
+
+        // Draw the tag label
+        ctx.fillStyle = "white";
+        ctx.font = "14px Arial";
+        ctx.fillText(label, start.x, start.y - 5);
+      });
+    }
+  }, [imageData, tags]);
 
   if (error) {
     return <div>Error: {error}</div>;
@@ -90,8 +80,8 @@ export default function ImageDisplay() {
           ref={imageRef}
           src={imageData.url}
           alt="Image with Tags"
-          width={imageData.width} // Assuming the image has width and height properties
-          height={imageData.height}
+          width={imageData.width || 500} // Default width if not provided
+          height={imageData.height || 500} // Default height if not provided
           className="h-auto max-w-full"
         />
         <canvas
@@ -103,14 +93,14 @@ export default function ImageDisplay() {
       <p>URL: {imageData.url}</p>
       <div className="mt-4">
         <h3 className="mb-2 text-xl font-semibold">Tags:</h3>
-        {`<ul>
+        <ul>
           {tags.map((tag, index) => (
             <li key={index}>
-              {tag.label} (x1: {tag.startPos.x}, y1: {tag.startPos.y}, x2:{" "}
-              {tag.endPos.x}, y2: {tag.endPos.y})
+              {tag.label} (x1: {tag.position.start.x}, y1: {tag.position.start.y}, x2:{" "}
+              {tag.position.end.x}, y2: {tag.position.end.y})
             </li>
           ))}
-        </ul>`}
+        </ul>
       </div>
     </div>
   );

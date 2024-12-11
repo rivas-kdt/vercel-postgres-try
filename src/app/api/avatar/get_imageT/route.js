@@ -20,7 +20,7 @@ export async function GET(request) {
     const tags = tagsQuery.map((tag) => JSON.parse(tag.tag_data));
 
     return new Response(
-      JSON.stringify({ image: imageData, tags: tags }),
+      JSON.stringify({ image: imageData, tags }),
       {
         status: 200,
         headers: { "Content-Type": "application/json" },

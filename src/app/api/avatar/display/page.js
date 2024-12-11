@@ -23,8 +23,8 @@ export default function Display() {
   return (
     <div className="flex items-center justify-center w-screen h-screen gap-2">
       {data.map((img) => (
-        <div key={img.id} className="bg-blue-500">
-          <Image src={img.url} width="0" height="0" sizes="250px" loading="lazy" className="w-full h-auto "></Image>
+        <div key={img.id}>
+          <Image src={img.url} fill sizes="250px" loading="lazy" className="w-full h-auto "></Image>
         </div>
       ))}
     </div>

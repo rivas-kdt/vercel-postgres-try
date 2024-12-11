@@ -106,20 +106,27 @@ export default function ImageDisplay({ id }) {
 
   const saveTags = async () => {
     try {
-      const response2 = await fetch("/api/avatar/save_tags", {
+      // Send the tags data to the server
+      const response = await fetch("/api/avatar/save_tags", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ id: id, tags: tags }),
       });
-      const result = await response2.json();
-      if (result.success) {
-        alert("Image uploaded and URL saved to database!");
+  
+      // Handle the response from the server
+      const result = await response.json();
+  
+      if (response.ok && result.success) {
+        // If the server responds with success, notify the user
+        alert("Tags saved successfully!");
       } else {
-        alert("Failed to save image URL to database");
+        // If something went wrong on the server side
+        alert("Failed to save tags. Please try again.");
       }
     } catch (err) {
+      // Handle any errors in the request
       console.error("Error saving tags:", err);
       alert("Error saving tags. Please try again.");
     }

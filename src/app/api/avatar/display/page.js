@@ -21,7 +21,7 @@ export default function Display() {
   console.log(data);
   console.log(error);
   return (
-    <div className="flex items-center justify-center w-screen h-screen">
+    <div className="flex items-center justify-center w-screen h-screen gap-2">
       {data.map((img) => (
         <div key={img.id} className="bg-blue-500">
           <Image src={img.url} width="0" height="0" sizes="50vw" loading="lazy" className="w-full h-auto "></Image>

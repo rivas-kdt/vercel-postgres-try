@@ -16,7 +16,10 @@ export default function Display() {
         setError(err.message);
       }
     };
-    fetchData();
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 1000 * 5); // in milliseconds
+    return () => clearInterval(intervalId);
   }, []);
   console.log(data);
   console.log(error);

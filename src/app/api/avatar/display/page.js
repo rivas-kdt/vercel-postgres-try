@@ -21,6 +21,7 @@ export default function Display() {
     }, 1000 * 5); // in milliseconds
     return () => clearInterval(intervalId);
   }, []);
+
   console.log(data);
   console.log(error);
   return (
@@ -28,7 +29,7 @@ export default function Display() {
       <div className="w-full max-w-[90%]">
         <div className="gap-2 columns-1 sm:columns-2 md:columns-5">
           {data.map((img) => (
-            <div key={img.id} className="relative mb-4 break-inside-avoid">
+            <div key={img.id} className="relative mb-4 break-inside-avoid" onClick={`/tag-image/${img.id}`}>
               <Image
                 src={img.url}
                 sizes="250px"

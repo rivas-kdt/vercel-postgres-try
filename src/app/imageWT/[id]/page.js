@@ -1,4 +1,4 @@
-// /pages/image/[id].js
+"use client"
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";

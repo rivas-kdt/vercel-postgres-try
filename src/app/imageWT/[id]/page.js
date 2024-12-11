@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import axios from "axios";
 
@@ -10,8 +10,9 @@ export default function ImageDisplay() {
   const [error, setError] = useState(null);
   const canvasRef = useRef(null);
   const imageRef = useRef(null);
-  const router = useRouter();
-  const { id } = router.query;  // Get image ID from URL
+  const pathname = usePathname();
+  const id = pathname.slice(9);
+  // Get image ID from URL
 
   useEffect(() => {
     if (!id) return; // Wait until the ID is available
@@ -41,7 +42,7 @@ export default function ImageDisplay() {
 
       // Draw the image and tags when data is loaded
       const ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clear canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
 
       // Draw the image
       ctx.drawImage(img, 0, 0, img.width, img.height);
@@ -84,7 +85,7 @@ export default function ImageDisplay() {
           ref={imageRef}
           src={imageData.url}
           alt="Image with Tags"
-          width={imageData.width}  // Assuming the image has width and height properties
+          width={imageData.width} // Assuming the image has width and height properties
           height={imageData.height}
           className="h-auto max-w-full"
         />
@@ -100,7 +101,8 @@ export default function ImageDisplay() {
         <ul>
           {tags.map((tag, index) => (
             <li key={index}>
-              {tag.label} (x1: {tag.startPos.x}, y1: {tag.startPos.y}, x2: {tag.endPos.x}, y2: {tag.endPos.y})
+              {tag.label} (x1: {tag.startPos.x}, y1: {tag.startPos.y}, x2:{" "}
+              {tag.endPos.x}, y2: {tag.endPos.y})
             </li>
           ))}
         </ul>

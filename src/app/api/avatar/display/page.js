@@ -29,7 +29,7 @@ export default function Display() {
       <div className="w-full max-w-[90%]">
         <div className="gap-2 columns-1 sm:columns-2 md:columns-5">
           {data.map((img) => (
-            <div key={img.id} className="relative mb-4 break-inside-avoid" onClick={`/tag-image/${img.id}`}>
+            <div key={img.id} className="relative mb-4 cursor-pointer break-inside-avoid" href={`/tag-image/${img.id}`}>
               <Image
                 src={img.url}
                 sizes="250px"

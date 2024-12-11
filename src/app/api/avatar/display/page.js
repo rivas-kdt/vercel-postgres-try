@@ -21,7 +21,7 @@ export default function Display() {
   console.log(data);
   console.log(error);
   return (
-    <div className="flex items-center justify-center w-screen h-screen">
+    <div className="flex flex-col items-center justify-center w-screen h-screen">
       {data.map((img) => (
         <div key={img.id} className=" w-4/5 h-[25%] relative">
           <Image src={img.url} fill className="object-contain "></Image>

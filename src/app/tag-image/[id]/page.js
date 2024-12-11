@@ -1,24 +1,14 @@
-import axios from "axios";
-
-async function fetchImage(id) {
-  try {
-    const response = await axios.get(`/api/avatar/get-image?id=${id}`);
-    console.log(response);
-    return response.data;
-  } catch (err) {
-    console.log(err);
-  }
-}
+import ImageDisplay from "@/components/imageDisplay";
 
 export default async function TagImage({ params }) {
   const { id } = await params;
-  const data = fetchImage(id);
   console.log(id);
-  console.log(data);
 
   return (
     <div>
-      <p>{id}</p>
+      <h1>Tag Image</h1>
+      <p>Image ID: {id}</p>
+      <ImageDisplay id={id} />
     </div>
   );
 }

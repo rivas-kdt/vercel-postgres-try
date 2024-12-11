@@ -1,4 +1,3 @@
-// /app/api/avatar/get_image.js
 import { neon } from "@neondatabase/serverless";
 
 export async function GET(request) {
@@ -17,6 +16,8 @@ export async function GET(request) {
     
     // Assuming tags are stored as JSON in the 'tag_data' column
     const imageData = imageQuery[0];
+    
+    // Parse the tags and flatten them by extracting individual tag items
     const tags = tagsQuery
       .map((tag) => {
         try {
@@ -25,16 +26,17 @@ export async function GET(request) {
           return null; // If parsing fails, return null (to be filtered out)
         }
       })
-      .filter((tag) => tag !== null && Array.isArray(tag.tags) && tag.tags.length > 0); // Filter out null or empty tags
+      .filter((tag) => tag !== null && Array.isArray(tag.tags) && tag.tags.length > 0) // Filter out invalid data
+      .flatMap((tag) => tag.tags); // Flatten the structure to extract individual tag items
 
-
+    // Return the image data along with the flattened tags
     return new Response(
       JSON.stringify({
         image: {
           id: imageData.id,
           url: imageData.url,
         },
-        tags
+        tags,  // This now contains only the individual tags, not nested in another 'tags' array
       }),
       {
         status: 200,

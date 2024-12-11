@@ -21,7 +21,7 @@ export default function Display() {
   console.log(data);
   console.log(error);
   return (
-    <div className="flex items-end justify-center w-screen h-screen gap-2">
+    <div className="flex items-center justify-center w-screen h-screen gap-2">
       <div className="flex items-end ">
         {data.map((img) => (
           <div key={img.id}>

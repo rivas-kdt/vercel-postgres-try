@@ -10,7 +10,7 @@ export default function ImageDisplay({ id }) {
   useEffect(() => {
     async function fetchImage() {
       try {
-        const response = await axios.get(`/api/avatar/get-image?id=${id}`);
+        const response = await axios.get(`/api/avatar/get_image?id=${id}`);
         setImageData(response.data);
       } catch (err) {
         setError(err.message);

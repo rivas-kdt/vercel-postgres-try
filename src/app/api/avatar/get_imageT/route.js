@@ -2,7 +2,8 @@
 import { neon } from "@neondatabase/serverless";
 
 export async function GET(request) {
-  const { id } = request.url.searchParams;
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get('id');
   
   try {
     const sql = neon(process.env.DATABASE_URL);

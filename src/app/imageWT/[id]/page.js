@@ -20,7 +20,7 @@ export default function ImageDisplay() {
     // Fetch image data and tags from the server
     async function fetchImageData() {
       try {
-        const response = await axios.get(`/api/avatar/get_image?id=${id}`);
+        const response = await axios.get(`/api/avatar/get_imageT?id=${id}`);
         const { image, tags } = response.data;
         setImageData(image);
         setTags(tags);

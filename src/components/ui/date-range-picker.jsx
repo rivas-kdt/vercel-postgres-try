@@ -8,6 +8,7 @@ export function DateRangePicker({ date = {}, setDate }) {
   return (
     <div className="flex items-center space-x-2">
       <DatePicker
+        dateFormat="yyyy/MM/dd"
         selectsRange={true}
         startDate={date?.from}
         endDate={date?.to}
